@@ -32,7 +32,7 @@ SECRET_KEY = os.environ['SECRET_KEY'] # Instead of your actual secret key
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["fincan.pythonanywhere.com"]
 
