@@ -12,8 +12,7 @@
 
         <!-- Author -->
         <p class="lead">
-          <small>by</small>
-          <a href="{% url 'about' %}" class=" font-weight-bold font-italic"> <small>{{article.author.first_name}} {{article.author.last_name}}</small></a>
+        <a href="{% url 'about' %}" class=" font-weight-bold font-italic"> <small>{{article.author.first_name}} {{article.author.last_name}}</small></a><small> tarafından yazıldı.</small>
         </p>
         <hr>
         <!-- Date/Time -->
