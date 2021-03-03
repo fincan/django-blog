@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3 class="text-center">Yazılar</h3>
+<hr>
+<form class="text-right">
+        {% csrf_token %}
+         <input type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Başlıklarda Ara...">
+        <button type="submit" class="btn btn-secondary btn">Ara</button>
+    </form>
+{% if articles %}
+    {% for article in articles %}
+        <!-- detail.html den koypayalandı -->
+        <div class="row">
+        <div class="col-sm-8 offset-2"> 
+
+        <!-- Post Content Column -->
+        <!-- Title -->
+        <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4">{{article.title}}</h2></a> 
+        <!-- Author -->
+        <p class="lead">
+          <a href="{% url 'about' %}" class=" font-weight-bold font-italic"> <small>{{article.author.first_name}} {{article.author.last_name}}</small></a><small> tarafından yazıldı.</small>
+        </p>
+        <hr>
+        <!-- Date/Time -->
+        <p> {{article.created_date}} </p>
+        <hr>
+        <!-- Preview Image -->
+        {% if article.article_image %}
+            <a href="{% url 'article:detail' article.id %}"> <img class="img-fluid rounded" src=" {{article.article_image.url}} " alt=""> </a>
+        {% endif %}
+     
+        <hr>
+        <!-- Post Content -->
+        <p class="lead"> {{article.content | safe | truncatewords:30}} </p>
+         <hr> 
+        <span class="d-flex justify-content-end" ><a href="{%url 'article:detail' article.id %}" class="btn btn-secondary">Devamını oku...</a></span>
+        <!-- Düğmeyi sağa dayamanın bir diğer yolu da float:right"-->
+       {% comment %}  <a style="float: right" href="/articles/article/{{article.id}}" class="btn btn-secondary text-right">Devamını oku...</a> {% endcomment %}
+       
+        
+    </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <!--Arama işleminden sonra herhangi bir yazı bululanamzsa-->
+    <div class="alert alert-danger mt-3 pt-4">
+        <p>Eşleşen bir başlık bulunamadı!</p>
+    </div>
+{% endif %}
+{% endblock body %}

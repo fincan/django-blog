@@ -1,0 +1,21 @@
+<!-- addarticle.html den kopyalandı-->
+{% extends "layout.html" %}
+{% block style %}
+
+{% endblock style %}
+{% block body %}
+{% load crispy_forms_tags %}
+<div class="row">
+    <div class="col-sm-8 offset-sm-2">
+        <h3>Blog Yazısı</h3>
+        <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- ckeditor dahil etmek için form.media-->
+            {{form.media}}
+            {{form | crispy}}
+            <button type="submit" class="btn btn-danger btn-block ">Güncelle</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}

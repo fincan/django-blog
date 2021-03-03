@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h3>Kontrol Panalei</h3>
+    <hr>
+    <p>
+        Hoşgeldin, {{request.user.first_name}}
+    </p>
+    <hr>
+    <a href="{% url 'article:addarticle' %}" class="btn btn-danger">Yazı Yaz</a>
+        {% if articles %}
+        <!--bootstrap table hover örneği baz alındı-->
+        <table class="table table-bordered table-secondary table-hover mt-4">
+            <thead>
+                <tr>
+                <th scope="col">id</th>
+                <th class="text-center" scope="col">Başlık</th>
+                <th class="text-center" scope="col">Yazar</th>
+                <th class="text-center" scope="col">Tarih</th>
+                <th class="text-center" scope="col">Güncelle</th>
+                <th class="text-center" scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr class="table-light">
+                        <th scope="row">{{article.id}}</th>
+                        <td><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></td>
+                        <td>{{article.author}}</td>
+                        <td>{{article.created_date}}</td>
+                        <td class="text-center"><a class="btn btn-danger" href="{% url 'article:update' article.id %}">Güncelle</a></td>
+                        <td class="text-center"><a class="btn btn-danger" data-toggle="modal" data-target="#silmodal">Sil</a></td>
+                        <!-- MODAL -->
+                        <div class="modal fade" id="silmodal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center">Sil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{article.title}} isimli yazıyı silmeyi onaylıyor musunuz?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">HAYIR</button>
+                                <a class="btn btn-danger" href="{% url 'article:delete' article.id %}">EVET</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% else %}
+    <div class="alert alert-danger mt-3">
+        <p>Henüz blog yazınız bulunmuyor!</p>
+        <p> {{ result }}</p>
+    </div>
+    {% endif %}
+
+{% endblock body %}

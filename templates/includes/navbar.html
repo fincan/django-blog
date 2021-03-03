@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="{% url 'index' %}">CE Blog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'article:articles' %}"><strong>Blog Yazıları</strong> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'about' %}"><strong>Hakkımda</strong><span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <!-- Henüz session["logged_in"] fonksiyon yapısı hazır olmadığı için yorumda -->
+      {% if request.user.is_authenticated %}
+        <li class="nav-item active"><a href="{% url 'article:dashboard' %}" class="nav-link"><strong>Kontrol Paneli</strong></a>
+        </li>
+        <li class="nav-item active"><a href="{% url 'user:logout' %}" class="nav-link"><strong>Çıkış</strong></a>
+        </li>
+      {% else %}
+        <li class="nav-item active"><a href="{% url 'user:login' %}" class="nav-link"><strong>Giriş</strong></a>
+        </li>
+        <li class="nav-item active"><a href="{% url 'user:register' %}" class="nav-link"><strong>Kayıt Ol</strong></a>
+          </li>
+      {% endif %}    
+    </ul>
+
+    <!-- Dropdown menu yapısı daha sonra lazım olabileceği için yorumda -->
+
+     {% comment %}  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> {% endcomment %}
+  </div>
+</nav>
